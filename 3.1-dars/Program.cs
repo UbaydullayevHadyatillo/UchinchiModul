@@ -1,10 +1,9 @@
-﻿namespace _3._1_dars
+﻿namespace _3._1_dars;
+
+internal class Program
 {
-    internal class Program
+    static void Main(string[] args)
     {
-        static void Main(string[] args)
-        {
-            Console.WriteLine("Hello, World!");
-        }
+
     }
 }

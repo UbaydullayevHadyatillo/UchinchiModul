@@ -1,58 +1,85 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace _3._1_dars;
+﻿namespace _3._1_dars;
 
 public class MyList : IMyList
 {
-
-    private int _capacity;
-
+    private int[] _nums;
+    private int arrIndex = 0;
     public int Capacity
     {
-        get { return _capacity; }
-        set { _capacity = value; }
+        get { return _nums.Length; }
     }
 
     public MyList(int capacity = 4)
     {
-        
+        _nums = new int[capacity];
     }
-    bool IMyList.Add(int num)
+    private void DoubleCapacity()
+    {
+        int[] newArr = new int[Capacity * 2];
+        for(var i = 0; i < Capacity;i++)
+        {
+            newArr[i] = _nums[i];
+        }
+        _nums = newArr;
+    }
+
+    public bool Add(int num)
+    {
+        if (arrIndex >= Capacity)
+        {
+            DoubleCapacity();
+        }
+        _nums[arrIndex] = num;
+        arrIndex++;
+        return true;
+    }
+
+    public bool RemovAll(int num)
     {
         throw new NotImplementedException();
     }
 
-    bool IMyList.Contains(int num)
+    public bool Remove(int num)
+    {
+        for(var i= 0; i<Capacity;i++)
+        {
+            if (_nums[i] == num)
+            {
+                for(var j =0; j < Capacity -1;j++)
+                {
+                    _nums[j] = _nums[j+1];
+                }
+                --arrIndex;
+                return true;    
+            }
+        }
+        return false;
+    }
+
+    public bool Contains(int num)
     {
         throw new NotImplementedException();
     }
 
-    int IMyList.GetById(int index)
+    public int IndexOf(int num)
+    {
+        for(int i=0; i<Capacity; i++)
+        {
+            if( _nums[i] == num)
+            {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    public bool RemovAt(int index)
     {
         throw new NotImplementedException();
     }
 
-    bool IMyList.IndexOf(int num)
+    public int GetById(int index)
     {
-        throw new NotImplementedException();
-    }
-
-    bool IMyList.RemovAll(int num)
-    {
-        throw new NotImplementedException();
-    }
-
-    bool IMyList.RemovAt(int index)
-    {
-        throw new NotImplementedException();
-    }
-
-    bool IMyList.Remove(int num)
-    {
-        throw new NotImplementedException();
+        return _nums[index];
     }
 }
